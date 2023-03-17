@@ -1,0 +1,893 @@
+<!--
+=========================================================
+* Argon Dashboard 2 - v2.0.4
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/argon-dashboard
+* Copyright 2022 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://www.creative-tim.com/license)
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <title>
+    Kreatif.ai
+  </title>
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+  <!-- Nucleo Icons -->
+  <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+  <!-- CSS Files -->
+  <link id="pagestyle" href="../assets/css/kreatif.css" rel="stylesheet" />
+  <!-- editor -->
+  <script src="https://cdn.ckeditor.com/ckeditor5/35.4.0/classic/ckeditor.js"></script>
+  <!-- js files -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- <script src="./dashboard.js"></script> -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-firestore.js"></script>
+
+</head>
+
+<body class="g-sidenav-show   bg-gray-100">
+  <div class="min-height-300 bg-primary position-absolute w-100"></div>
+  
+  <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
+    <div class="sidenav-header">
+      <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+      <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/argon-dashboard/pages/dashboard.html " target="_blank">
+        <img src="../assets/img/logo-ct-dark.png" class="navbar-brand-img h-100" alt="main_logo">
+        <span class="ms-1 font-weight-bold">Kreatif.ai</span>
+      </a>
+    </div>
+    <hr class="horizontal dark mt-0">
+    <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" href="../pages/dasbor.html">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Dasbor</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="../pages/data.html">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Data</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="../pages/akun.html">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Akun</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a onclick="signOut()" class="nav-link">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-world-2 text-danger text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Keluar</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="sidenav-footer mx-3 ">
+      <div class="card card-plain shadow-none" id="sidenavCard">
+        <img class="w-50 mx-auto" src="../assets/img/illustrations/icon-documentation.svg" alt="sidebar_illustration">
+        <div class="card-body text-center p-3 w-100 pt-0">
+          <div class="docs-info">
+            <h6 class="mb-0">Butuh Bantuan?</h6>
+            <p class="text-xs font-weight-bold mb-0">Hubungi costumer service kami</p>
+          </div>
+        </div>
+      </div>
+      <a id="email-button" class="btn btn-dark btn-sm w-100 mb-3">Email</a>
+      <a id="chat-button" class="btn btn-success btn-sm mb-0 w-100" type="button">Whatsapp</a>
+    </div>
+  </aside>
+  
+
+  <main class="main-content position-relative border-radius-lg ">
+
+    
+
+    <!-- Navigation Drawer -->
+    <div class="offcanvas offcanvas-start bg-white navbar d-xl-none navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4" id="offcanvasExample">
+      <div class="offcanvas-header">
+        <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconOffcanvas"></i>
+        <a class="navbar-brand m-0" href="https://demos.creative-tim.com/argon-dashboard/pages/dashboard.html" target="_blank">
+          <img src="../assets/img/logo-ct-dark.png" class="navbar-brand-img h-100" alt="main_logo">
+          <span class="ms-1 font-weight-bold">Kreatif.ai</span>
+        </a>
+      </div>
+      <hr class="horizontal dark mt-0">
+      <div class="offcanvas-body">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" href="../pages/dasbor.html">
+              <div class="icon icon-shape icon-sm border-radius-md text-center me-2 align-items-center justify-content-center">
+                <i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
+              </div>
+              <span class="nav-link-text ms-1">Dashbor</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../pages/data.html">
+              <div class="icon icon-shape icon-sm border-radius-md text-center me-2 align-items-center justify-content-center">
+                <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
+              </div>
+              <span class="nav-link-text ms-1">Data</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../pages/akun.html">
+              <div class="icon icon-shape icon-sm border-radius-md text-center me-2 align-items-center justify-content-center">
+                <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
+              </div>
+              <span class="nav-link-text ms-1">Akun</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a onclick="signOut()" class="nav-link">
+              <div class="icon icon-shape icon-sm border-radius-md text-center me-2 align-items-center justify-content-center">
+                <i class="ni ni-world-2 text-danger text-sm opacity-10"></i>
+              </div>
+              <span class="nav-link-text ms-1">Keluar</span>
+            </a>
+          </li>
+        </ul>
+        <div class="sidenav-footer mx-3 mt-6">
+          <div class="card card-plain shadow-none" id="sidenavCard">
+            <img class="w-50 mx-auto" src="../assets/img/illustrations/icon-documentation.svg" alt="sidebar_illustration">
+            <div class="card-body text-center p-3 w-100 pt-0">
+              <div class="docs-info">
+                <h6 class="mb-0">Butuh Bantuan?</h6>
+                <p class="text-xs font-weight-bold mb-0">Hubungi costumer service kami</p>
+              </div>
+            </div>
+          </div>
+            <a id="email-button" class="btn btn-dark btn-sm w-100 mb-3">Email</a>
+            <a id="chat-button" class="btn btn-success btn-sm mb-0 w-100" type="button">Whatsapp</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl topnav" id="navbarBlur" data-scroll="false">
+      <div class="container-fluid py-1 px-3">
+        <div class="d-none d-xl-block">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+              <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Halaman</a></li>
+              <li class="breadcrumb-item text-sm text-white active" aria-current="page">Dasbor</li>
+            </ol>
+            <h6 class="font-weight-bolder text-white mb-0">Dasbor</h6>
+          </nav>
+        </div>
+      <!-- Button trigger navigation drawer -->
+      <div class="pt-3 mb-0 pb-0 px-0 me-4">
+        <button class="btn btn-white d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+        <div class="collapse navbar-collapse mt-0 me-md-0 me-sm-4" id="navbar">
+            <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+              <div class="input-group">
+                <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
+                <input type="text" class="form-control" placeholder="Cari disini....." onkeyup="searchCards(this.value)">
+              </div>
+            </div>
+          </div>
+      </div>
+    </nav>
+    <!-- End Navbar -->
+
+    <!-- start of dashboard -->
+    <div class="container-fluid pt-4 dashboard">
+      <div class="col category-dashboard">
+        <button type="button" class="btn btn-white all-btn">Semua</button>
+        <button type="button" class="btn bg-white blog-btn">Blog</button>
+        <button type="button" class="btn bg-white sm-btn">Media Sosial</button>
+        <button type="button" class="btn bg-white web-btn">Website Dan Seo</button>
+        <button type="button" class="btn bg-white lain-btn">Alat Lainya</button>
+      </div>
+      
+        
+      <!-- card blog -->
+      <div class="row col-12 justify-content-start d-flex flex-wrap" id="card-dashboard">
+        <div class="col-12 col-sm-6 col-md-4 col-xl-2 card-dashboard blog-card mt-3">
+          <div class="card expand-on-hover" style="width: 180px; height: 180px;">
+            <div class="card-body pt-2">
+              <span class="text-primary text-uppercase text-xs font-weight-bold mt-3 category-blog">Blog</span>
+              <a href="#" id="article-generator" class="card-title h5 d-block text-darker">
+                <i class="ni ni-ruler-pencil"></i> <span>Pembuat artikel</span>
+                <p class="text-xs mb-2">
+                  Ubah judul dan garis besar menjadi artikel panjang yang dioptimalkan untuk SEO.
+                </p>
+              </a>
+            </div>
+          </div>
+        </div>
+      
+        <div class="col-12 col-sm-6 col-md-4 col-xl-2 card-dashboard blog-card mt-3">
+          <div class="card expand-on-hover" style="width: 180px; height: 180px;">
+            <div class="card-body pt-2">
+              <span class=" text-primary text-uppercase text-xs font-weight-bold mt-3 category-blog">Blog</span>
+              <a href="#" id="paragraph-generator" class="card-title h5 d-block text-darker">
+                <i class="ni ni-ruler-pencil"></i> <span>Pembuat paragraf</span>
+                <p class="text-xs mb-2">
+                  hasilkan paragraf tentang topik apa pun dengan nada tertentu.
+                </p>
+              </a>
+            </div>
+          </div>
+        </div>      
+
+          <div class="col-12 col-sm-6 col-md-4 col-xl-2 card-dashboard blog-card mt-3">
+            <div class="card expand-on-hover" style="width: 180px; height: 180px;">
+              <div class="card-body pt-2">
+                <span class=" text-primary text-uppercase text-xs font-weight-bold mt-3 category-blog">Blog</span>
+                  <a href="#" id="bagian-blog-generator" class="card-title h5 d-block text-darker">
+                    <i class="ni ni-ruler-pencil"></i> <span>Pembuat Bagian Blog</span>
+                    <p class="text-xs mb-2">
+                     Tulis bagian blog lengkap (beberapa paragraf) tentang subjudul dari artikelmu.
+                    </p>
+                  </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-6 col-md-4 col-xl-2 card-dashboard sm-card mt-3">
+            <div class="card expand-on-hover" style="width: 180px; height: 180px;">
+              <div class="card-body pt-2">
+                <span class=" text-primary text-uppercase text-xs font-weight-bold mt-3 category-media">Media Sosial</span>
+                <a href="#" id="postbisnis-generator" class="card-title h5 d-block text-darker blog-2">
+                    <i class="ni ni-like-2"></i> <span>Post Bisnis</span>
+                    <p class="text-xs mb-2">
+                      Tulis sebuah pos untuk bisnis Anda yang akan dipublikasikan di platform media sosial apa pun.
+                    </p>
+                  </a>
+              </div>
+            </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-4 col-xl-2 card-dashboard sm-card mt-3">
+              <div class="card expand-on-hover" style="width: 180px; height: 180px;">
+                <div class="card-body pt-2">
+                  <span class=" text-primary text-uppercase text-xs font-weight-bold mt-3 category-media">Media Sosial</span>
+                  <a href="#" id="post-pribadi-generator" class="card-title h5 d-block text-darker blog-2">
+                      <i class="ni ni-like-2"></i> <span>Post Pribadi</span>
+                      <p class="text-xs mb-2">
+                        Tulis sebuah pos media sosial untuk diri Anda sendiri yang akan dipublikasikan di platform apa pun.
+                      </p>
+                    </a>
+                </div>
+              </div>
+              </div>
+
+          <div class="col-12 col-sm-6 col-md-4 col-xl-2 card-dashboard blog-card mt-3">
+            <div class="card expand-on-hover" style="width: 180px; height: 180px;">
+              <div class="card-body pt-2">
+                <span class=" text-primary text-uppercase text-xs font-weight-bold mt-3 category-blog">Blog</span>
+                  <a href="#" id="judul-blog-generator" class="card-title h5 d-block text-darker blog-2">
+                    <i class="ni ni-ruler-pencil"></i> <span>Judul Blog</span>
+                    <p class="text-xs my-2">
+                    Menghasilkan judul blog yang menarik dan tidak membosankan.
+                    </p>
+                  </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-6 col-md-4 col-xl-2 card-dashboard blog-card mt-3">
+            <div class="card expand-on-hover" style="width: 180px; height: 180px;">
+              <div class="card-body pt-2">
+                <span class=" text-primary text-uppercase text-xs font-weight-bold mt-3 category-blog">Blog</span>
+                  <a href="#" id="ide-blog-generator" class="card-title h5 d-block text-darker blog-2">
+                    <i class="ni ni-ruler-pencil"></i> <span>Ide Blog</span>
+                    <p class="text-xs my-2">
+                      Alat ini dapat menghasilkan ide kreatif untuk artikel barumu.
+                    </p>
+                  </a>
+              </div>
+            </div>
+          </div>
+          
+
+          <div class="col-12 col-sm-6 col-md-4 col-xl-2 card-dashboard blog-card mt-3">
+            <div class="card expand-on-hover" style="width: 180px; height: 180px;">
+              <div class="card-body pt-2">
+                <span class=" text-primary text-uppercase text-xs font-weight-bold mt-3 category-blog">Blog</span>
+                  <a href="#" id="pengantar-blog-generator" class="card-title h5 d-block text-darker blog-2">
+                    <i class="ni ni-ruler-pencil"></i> <span>Pengantar Blog</span>
+                    <p class="text-xs mb-2">
+                      menulis pengantar agar pengunjungmu untuk membaca lebih banyak tentang artikelmu.
+                    </p>
+                  </a>
+              </div>
+            </div>
+          </div>
+  
+                <div class="col-12 col-sm-6 col-md-4 col-xl-2 card-dashboard blog-card mt-3">
+                  <div class="card expand-on-hover" style="width: 180px; height: 180px;">
+                    <div class="card-body pt-2">
+                      <span class=" text-primary text-uppercase text-xs font-weight-bold mt-3 category-blog">Blog</span>
+                      <a href="#" id="garisbesar-blog-generator" class="card-title h5 d-block text-darker blog-2">
+                          <i class="ni ni-ruler-pencil"></i> <span>Garis Besar Blog</span>
+                          <p class="text-xs mb-2">
+                            Membuat garis besar menjadi lebih mudah dan cepat.
+                          </p>
+                        </a>
+                    </div>
+                  </div>
+                  </div>
+  
+                  <div class="col-12 col-sm-6 col-md-4 col-xl-2 card-dashboard blog-card mt-3">
+                    <div class="card expand-on-hover" style="width: 180px; height: 180px;">
+                      <div class="card-body pt-2">
+                        <span class=" text-primary text-uppercase text-xs font-weight-bold my-2 category-blog">Blog</span>
+                          <a href="#" id="kesimpulan-blog-generator" class="card-title h5 d-block text-darker blog-2">
+                            <i class="ni ni-ruler-pencil"></i><span>Kesimpulan Blog</span>
+                            <p class="text-xs mb-2">
+                              Dapat mengakhiri artikel blogmu dengan paragraf kesimpulan yang menarik.
+                            </p>
+                          </a>
+                      </div>
+                    </div>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-md-4 col-xl-2 card-dashboard sm-card mt-3">
+                      <div class="card expand-on-hover" style="width: 180px; height: 180px;">
+                        <div class="card-body pt-2">
+                          <span class=" text-primary text-uppercase text-xs font-weight-bold my-2 category-media">Media Sosial</span>
+                            <a href="#" id="deskripsi-instagram-generator" class="card-title h5 d-block text-darker blog-2">
+                              <i class="ni ni-like-2"></i> <span>deskripsi Instagram</span>
+                              <p class="text-xs mb-2">
+                                Tarik perhatian dengan keterangan menarik untuk postingan Instagram Anda.
+                              </p>
+                            </a>
+                        </div>
+                      </div>
+                      </div>
+
+        <!-- card-sosial media -->
+      <div class="col-12 col-sm-6 col-md-4 col-xl-2 card-dashboard sm-card mt-3">
+        <div class="card expand-on-hover" style="width: 180px; height: 180px;">
+          <div class="card-body pt-2">
+            <span class=" text-primary text-uppercase text-xs font-weight-bold my-2 category-media">Media Sosial</span>
+              <a href="#" id="hastag-generator" class="card-title h5 d-block text-darker blog-2">
+                <i class="ni ni-like-2"></i> <span>Hastag Instagram</span>
+                <p class="text-xs mb-2">
+                  Temukan hashtag terbaik untuk digunakan dalam postingan Instagram Anda.
+                </p>
+              </a>
+          </div>
+        </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-md-4 col-xl-2 card-dashboard sm-card mt-3">
+          <div class="card expand-on-hover" style="width: 180px; height: 180px;">
+            <div class="card-body pt-2">
+              <span class=" text-primary text-uppercase text-xs font-weight-bold my-2 category-media">Media Sosial</span>
+                <a href="#" id="twitter-threads-generator" class="card-title h5 d-block text-darker blog-2">
+                  <i class="ni ni-like-2"></i> <span>Twitter Threads</span>
+                  <p class="text-xs mb-2">
+                    Mudah membuat thread Twitter yang menarik tentang topik tertentu tanpa semua kerumitan.
+                  </p>
+                </a>
+            </div>
+          </div>
+          </div>
+
+          <div class="col-12 col-sm-6 col-md-4 col-xl-2 card-dashboard web-card mt-3">
+            <div class="card expand-on-hover" style="width: 180px; height: 180px;">
+              <div class="card-body pt-2">
+                <span class=" text-primary text-uppercase text-xs font-weight-bold my-2 category-web">Web Dan Seo</span>
+                  <a href="#" id="tentangkami-situs-generator" class="card-title h5 d-block text-darker blog-2">
+                    <i class="ni ni-world-2"></i> <span>Tentang Kami </span>
+                    <p class="text-xs mb-2">
+                      Hasilkan konten yang unik dan kreatif untuk mewakili bisnis Anda di halaman tentang kami.
+                    </p>
+                  </a>
+              </div>
+            </div>
+            </div>
+  
+            <div class="col-12 col-sm-6 col-md-4 col-xl-2 card-dashboard web-card mt-3">
+              <div class="card expand-on-hover" style="width: 180px; height: 180px;">
+                <div class="card-body pt-2">
+                  <span class=" text-primary text-uppercase text-xs font-weight-bold my-2 category-web">Web Dan Seo</span>
+                  <a href="#" id="cta-situs-generator" class="card-title h5 d-block text-darker blog-2">
+                      <i class="ni ni-world-2"></i> <span>Panggilan ke Tindakan</span>
+                      <p class="text-xs mb-2">
+                        Hasilkan baris CTA (atau pengait) tentang bisnis Anda agar pengunjung mengambil tindakan.
+                      </p>
+                    </a>
+                </div>
+              </div>
+              </div>
+
+          <div class="col-12 col-sm-6 col-md-4 col-xl-2 card-dashboard sm-card mt-3">
+            <div class="card expand-on-hover" style="width: 180px; height: 180px;">
+              <div class="card-body pt-2">
+                <span class=" text-primary text-uppercase text-xs font-weight-bold my-2 category-media">Media Sosial</span>
+                  <a href="#" id="tweet-generator" class="card-title h5 d-block text-darker blog-2">
+                    <i class="ni ni-like-2"></i> <span>Pembuat Tweet</span>
+                    <p class="text-xs mb-2">
+                      Tidak tahu apa yang harus ditwitkan? Dapatkan ide untuk tweet yang akan memikat pengikut Anda.
+                    </p>
+                  </a>
+              </div>
+            </div>
+            </div>
+
+              <div class="col-12 col-sm-6 col-md-4 col-xl-2 card-dashboard web-card mt-3">
+                <div class="card expand-on-hover" style="width: 180px; height: 180px;">
+                  <div class="card-body pt-2">
+                    <span class=" text-primary text-uppercase text-xs font-weight-bold my-2 category-web">Web Dan Seo</span>
+                      <a href="#" id="judul-situs-generator" class="card-title h5 d-block text-darker blog-2">
+                        <i class="ni ni-world-2"></i> <span>Judul Situs Web</span>
+                        <p class="text-xs mb-2">
+                          Tulis judul menarik untuk Halaman Arahan atau halaman web apa pun.
+                        </p>
+                      </a>
+                  </div>
+                </div>
+                </div>
+
+
+    <!-- kartu website -->
+      <div class="col-12 col-sm-6 col-md-4 col-xl-2 card-dashboard web-card mt-3">
+        <div class="card expand-on-hover" style="width: 180px; height: 180px;">
+          <div class="card-body pt-2">
+            <span class=" text-primary text-uppercase text-xs font-weight-bold my-2 category-web">Web & Seo</span>
+              <a href="#" id="subjudul-situs-generator" class="card-title h5 d-block text-darker blog-2">
+                <i class="ni ni-world-2"></i> <span>Subjudul Situs Web</span>
+                <p class="text-xs mb-2">
+                  Tulis subjudul sekunder yang menjelaskan tentang judul utama.
+                </p>
+              </a>
+          </div>
+        </div>
+        </div>
+
+          <div class="col-12 col-sm-6 col-md-4 col-xl-2 card-dashboard web-card mt-3">
+            <div class="card expand-on-hover" style="width: 180px; height: 180px;">
+              <div class="card-body pt-2">
+                <span class=" text-primary text-uppercase text-xs font-weight-bold my-2 category-web">Web & Seo</span>
+                  <a href="#" id="deskripsiurl-situs-generator" class="card-title h5 d-block text-darker blog-2">
+                    <i class="ni ni-world-2"></i> <span>Deskripsi Meta (URL)</span>
+                    <p class="text-xs mb-2">
+                      Hasilkan deskripsi meta yang dioptimalkan untuk SEO berdasarkan konten URL
+                    </p>
+                  </a>
+              </div>
+            </div>
+            </div>
+
+              <div class="col-12 col-sm-6 col-md-4 col-xl-2 card-dashboard web-card mt-3">
+                <div class="card expand-on-hover" style="width: 180px; height: 180px;">
+                  <div class="card-body pt-2">
+                    <span class=" text-primary text-uppercase text-xs font-weight-bold my-2 category-web">Web & Seo</span>
+                      <a href="#" id="faq-situs-generator" class="card-title h5 d-block text-darker blog-2">
+                        <i class="ni ni-world-2"></i> <span>FAQ</span>
+                        <p class="text-xs mb-2">
+                        Hasilkan pertanyaan dan jawaban yang sering diajukan berdasarkan deskripsi produk Anda.
+                        </p>
+                      </a>
+                  </div>
+                </div>
+                </div>
+
+
+    <!-- kartu marketting -->
+      <div class="col-12 col-sm-6 col-md-4 col-xl-2 card-dashboard web-card mt-3">
+        <div class="card expand-on-hover" style="width: 180px; height: 180px;">
+          <div class="card-body pt-2">
+            <span class=" text-primary text-uppercase text-xs font-weight-bold my-2 category-web">Web Dan Seo</span>
+              <a href="#" id="testimoni-situs-generator" class="card-title h5 d-block text-darker blog-2">
+                <i class="ni ni-world-2"></i> <span>Testimoni</span>
+                <p class="text-xs mb-2">
+                  Tambahkan bukti sosial ke situs web Anda dengan menghasilkan testimonial pengguna.
+                </p>
+              </a>
+          </div>
+        </div>
+        </div>
+
+            <div class="col-12 col-sm-6 col-md-4 col-xl-2 card-dashboard lain-card  mt-3">
+              <div class="card expand-on-hover" style="width: 180px; height: 180px;">
+                <div class="card-body pt-2">
+                  <span class=" text-primary text-uppercase text-xs font-weight-bold my-2 category-lain">Alat Lain</span>
+                    <a href="#" id="judul-video-generator" class="card-title h5 d-block text-darker blog-2">
+                      <i class="ni ni-laptop"></i> <span>Pembuat Judul Video</span>
+                      <p class="text-xs mb-2">
+                        Tulis judul video YouTube yang memikat perhatian orang.
+                      </p>
+                    </a>
+                </div>
+              </div>
+              </div>
+      
+              <div class="col-12 col-sm-6 col-md-4 col-xl-2 card-dashboard lain-card  mt-3 mb-4">
+                <div class="card expand-on-hover" style="width: 180px; height: 180px;">
+                  <div class="card-body pt-2">
+                    <span class=" text-primary text-uppercase text-xs font-weight-bold my-2 category-lain">Alat Lain</span>
+                    <a href="#" id="skrip-video-generator" class="card-title h5 d-block text-darker blog-2">
+                        <i class="ni ni-laptop"></i> <span>Intro Video</span>
+                        <p class="text-xs mb-2">
+                          Tulis intro video yang menarik untuk memikat audiens Anda dalam beberapa detik pertama.
+                        </p>
+                      </a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12 col-sm-6 col-md-4 col-xl-2 card-dashboard lain-card  mt-3 mb-4">
+                <div class="card expand-on-hover" style="width: 180px; height: 180px;">
+                  <div class="card-body pt-2">
+                    <span class=" text-primary text-uppercase text-xs font-weight-bold my-2 category-lain">Alat Lain</span>
+                    <a href="#" id="deskripsi-video-generator" class="card-title h5 d-block text-darker blog-2">
+                        <i class="ni ni-laptop"></i> <span>Deskripsi Video</span>
+                        <p class="text-xs mb-2">
+                          Tulis deskripsi video YouTube yang menarik untuk membuat orang tertarik pada video Anda.
+                        </p>
+                      </a>
+                  </div>
+                </div>
+              </div>
+    </div>
+
+  </div>
+<!-- end of dashboard -->
+
+<!-- start of editor -->
+<div class="container-fluid py-4 editor">
+  <div class="row">
+    <div class="col-12 col-md-4">
+      <div class="card">
+        <div class="card-body">
+
+          <div class="row">
+
+            <div class="col-3">
+              <button class="btn btn-icon btn-3 btn-bg-gradient-default custom-button editor-back" id="editor-back">
+                  <span class="btn-inner--icon"><i class="ni ni-bold-left"></i></span>
+              </button>
+             </div>
+             
+             <div class="col-9">
+              <div class="form-group ">
+                <div class="dropdown ">
+                  <a class="btn bg-outline-white dropdown usecased-dropdown" data-bs-toggle="dropdown"></a>
+                </div>
+              </div>
+            </div>
+             </div>
+
+          <div class="row">
+            <div class="col-12 css-dropdown ">
+              <div class="form-group ">
+                <label for="example-text-input" class="form-control-label">Alat</label>
+                <div class="dropdown w-100" id="kegunaan-dropdown">
+                  <a href="#" class="btn bg-outline-white btn-lg dropdown alat-dropdown" data-bs-toggle="dropdown">
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-7 css-dropdown">
+              <div class="form-group">
+                <label for="example-text-input" class="form-control-label">Kreativitas</label>
+                <div class="dropdown">
+                  <a href="#" class="btn bg-outline-light dropdown-toggle " data-bs-toggle="dropdown" id="dropdownMenuKreativitas">
+                      Rendah
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuKreativitas">
+                      <li>
+                          <a class="dropdown-kreativitas" href="#">
+                            Rendah
+                          </a>
+                      </li>
+                      <li>
+                          <a class="dropdown-kreativitas" href="#">
+                            Sedang
+                          </a>
+                      </li>
+                      <li>
+                        <a class="dropdown-kreativitas" href="#">
+                          Tinggi
+                        </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            
+
+            <div class="col-5 nada css-dropdown">
+              <div class="form-group">
+                <label for="example-text-input" class="form-control-label">Nada</label>
+                <div class="dropdown">
+                  <a href="#" class="btn bg-outline-white dropdown-toggle" data-bs-toggle="dropdown" id="dropdownMenuNada">
+                      Senang
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuNada">
+                      <li>
+                          <a class="dropdown-nada" href="#">
+                            Profesional
+                          </a>
+                      </li>
+                      <li>
+                          <a class="dropdown-nada" href="#">
+                            Teman
+                          </a>
+                      </li>
+                      <li>
+                          <a class="dropdown-nada" href="#">
+                            Ramah
+                          </a>
+                      </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+            <div class="col-md-12 input-judul grid">
+              <div class="form-group">
+                <label for="example-text-input" class="form-control-label">Tulis Judul Anda</label>
+                <input id="input-judul" type="text" class="form-control" rows="2" placeholder="Manfaat kecerdasan buatan di indonesia"></input>
+              </div>
+            </div>
+
+            <div class="col-md-12 input-perusahaan">
+              <div class="form-group">
+                <label for="example-text-input" class="form-control-label">Tulis Nama Perusahaan Anda</label>
+                <textarea id="input-perusahaan" class="form-control" rows="2"></textarea>
+              </div>
+            </div>
+
+            <div class="col-md-12 input-audiens">
+              <div class="form-group">
+                <label for="example-text-input" class="form-control-label">Siapa Audiens Anda</label>
+                <textarea id="input-audiens" class="form-control" rows="2"></textarea>
+              </div>
+            </div>
+
+            <div class="col-md-12 input-produk">
+              <div class="form-group">
+                <label for="example-text-input" class="form-control-label">Apa Nama Produk Anda</label>
+                <textarea id="input-produk" class="form-control" rows="2"></textarea>
+              </div>
+            </div>
+
+            <div class="col-md-12 input-website">
+              <div class="form-group">
+                <label for="example-text-input" class="form-control-label">Apa Nama Website Anda</label>
+                <textarea id="input-website" class="form-control" rows="2"></textarea>
+              </div>
+            </div>
+
+            <div class="col-md-12 input-kata-kunci">
+              <div class="form-group">
+                <label for="example-text-input" class="form-control-label">Tulis Kata Kunci Anda</label>
+                <textarea id="input-kata-kunci" class="form-control" rows="1" placeholder="robot, artikel, kecerdasan buatan"></textarea>
+              </div>
+            </div>
+
+            <div class="col-md-12 input-deskripsi-perusahaan">
+              <div class="form-group">
+                <label for="example-text-input" class="form-control-label">Tulis deskripsi Perusahaan Anda</label>
+                <textarea id="input-deskripsi-perusahaan" class="form-control" rows="2"></textarea>
+              </div>
+            </div>
+
+            <div class="col-md-12 input-deskripsi">
+              <div class="form-group">
+                <label for="example-text-input" class="form-control-label">Tulis Deskripsi Anda</label>
+                <textarea id="input-deskripsi" class="form-control" rows="2" placeholder=""></textarea>
+              </div>
+            </div>
+
+            
+            <!-- topik add minus -->
+            <div class="row topik-1 mb-1 topic">
+              <label for="example-text-input" class="form-control-label">Tulis Topik Anda</label>
+
+              <div class="col-10">
+                <div class="form-group" id="inputs">
+                  <input id="input-topik-1" class="form-control input-1" type="text" placeholder="Apa itu kecerdasan buatan">
+                </div>
+              </div>  
+              <div class="col-2 mt-1">
+                <div class="d-flex justify-content-end">
+                  <button class="btn btn-primary btn-xs add-topic"><i class="fas fa-plus"></i></button>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="row topik-2 mb-1 topic">
+              <div class="col-10 pt-1">
+                <div class="form-group" id="inputs">
+                  <input id="input-topik-2" class="form-control input-1" type="text">
+                </div>
+              </div>  
+              <div class="col-2">
+                <div class="d-flex justify-content-end">
+                  <div class="btn-group-vertical" id="button-group-1">
+                    <button class="btn btn-primary btn-xxs add-topic"><i class="fas fa-plus"></i></button>
+                    <button class="btn btn-danger btn-xxs remove-topic"><i class="fas fa-minus"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+              
+            <div class="row topik-3 mb-1 topic">
+              <div class="col-10 pt-1">
+                <div class="form-group" id="inputs">
+                  <input id="input-topik-3" class="form-control input-1" type="text">
+                </div>
+              </div>  
+              <div class="col-2">
+                <div class="d-flex justify-content-end">
+                  <div class="btn-group-vertical" id="button-group-1">
+                    <button class="btn btn-primary btn-xxs add-topic"><i class="fas fa-plus"></i></button>
+                    <button class="btn btn-danger btn-xxs remove-topic"><i class="fas fa-minus"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row topik-4 topic">
+              <div class="col-10 pt-1">
+                <div class="form-group" id="inputs">
+                  <input id="input-topik-4" class="form-control input-1" type="text">
+                </div>
+              </div>  
+              <div class="col-2">
+                <div class="d-flex justify-content-end">
+                  <div class="btn-group-vertical" id="button-group-1">
+                    <button class="btn btn-primary btn-xxs add-topic"><i class="fas fa-plus"></i></button>
+                    <button class="btn btn-danger btn-xxs remove-topic"><i class="fas fa-minus"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          <div class="row mt-4">
+
+            <div class=" col-6">
+              <button id="submit-button" type="button" class="btn btn-success kegunaan">Hasilkan</button>
+            </div>
+
+            <div class="col-6">
+              <div class="form-group">
+                <div class="dropup">
+                  <a href="#" class="btn bg-outline-light dropdown-toggle " data-bs-toggle="dropdown" id="dropdownMenuVariasi"  aria-expanded="false">
+                      1 variasi
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuVariasi">
+                      <li>
+                          <a class="dropdown-variasi">
+                            1 variasi
+                          </a>
+                      </li>
+                      <li>
+                          <a class="dropdown-variasi">
+                            2 variasi
+                          </a>
+                      </li>
+                      <li>
+                          <a class="dropdown-variasi">
+                            3 variasi
+                          </a>
+                      </li>
+                  </ul>
+                </div>
+              </div>
+          </div>
+
+          </div>
+          
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-8 mb-2 mt-1">
+      <div class="card ">
+        <div class="card-body card-hasil pb-0">
+          <p id="loading"><b>Hasil</b></p>
+          <p id="word-count">Word Count:</p>
+          <div id="editor">
+          </div>
+        </div> 
+      </div>
+    </div>
+
+<!-- end of editor -->
+      <footer class="footer pt-3  ">
+        <div class="container-fluid">
+          <div class="row align-items-center justify-content-lg-between">
+            <div class="col-lg-6 mb-lg-0 mb-4">
+              <div class="copyright text-center text-sm text-muted text-lg-start">
+                © <script>
+                  document.write(new Date().getFullYear())
+                </script>,
+                made with <i class="fa fa-heart"></i> by
+                <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">myp</a>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <ul class="nav nav-footer justify-content-center justify-content-lg-end">
+                <li class="nav-item">
+                  <a href="https://www.creative-tim.com" class="nav-link text-muted" target="_blank">Creative Tim</a>
+                </li>
+                <li class="nav-item">
+                  <a href="https://www.creative-tim.com/presentation" class="nav-link text-muted" target="_blank">About Us</a>
+                </li>
+                <li class="nav-item">
+                  <a href="https://www.creative-tim.com/blog" class="nav-link text-muted" target="_blank">Blog</a>
+                </li>
+                <li class="nav-item">
+                  <a href="https://www.creative-tim.com/license" class="nav-link pe-0 text-muted" target="_blank">License</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+</main>
+
+    <!-- ourcode -->
+    <script src="./js/firebaseConfig.js"></script>
+    <script src="./js/sign/status.js"></script>
+    <script src="./js/ui/displayDashboard.js"></script>
+    <script src="./js/ui/search.js"></script>
+    <script src="./js/ui/dropdown.js"></script>
+    <script src="./js/ui/kontak.js"></script>
+    <script src="./js/openai/openaiConfig.js"></script>
+    <script src="./js/openai/prompt.js"></script>
+    <script src="./js/openai/openai.js"></script>
+    <script src="./js/sign/firebaseSignOut.js"></script>
+    
+  <!--   Core JS Files   -->
+  <script src="../assets/js/core/popper.min.js"></script>
+  <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
+  <script src="../assets/js/core/bootstrap.min.js"></script>
+  
+  <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="../assets/js/argon-dashboard.min.js?v=2.0.4"></script>
+
+</body>
+
+</html>
